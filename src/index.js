@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import store from './stores'
 import { Provider } from 'react-redux'
-import Intro from './components/presentation/Intro'
+import { Orders, SignIn, SignUp, NavBar } from './components/containers'
+import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 	This is the entry point of the React app with Redux
@@ -15,9 +16,21 @@ import Intro from './components/presentation/Intro'
 
 const app = (
 	<Provider store={store.configure(null)}>
-		<Intro />
+		<Router>
+			<div className="container">
+				<NavBar />
+				<div>
+					<Switch>
+						<Route exact path="/" component={Orders} />
+						<Route path="/signin" component={SignIn} />
+						<Route path="/signup" component={SignUp} />
+					</Switch>
+				</div>
+			</div>
+		</Router>
 	</Provider>
 )
+
 
 
 ReactDOM.render(app, document.getElementById('root'))

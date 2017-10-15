@@ -9,13 +9,13 @@
     "postinstall": "npm run build"
   },
   "dependencies": {
-    "file-loader": "latest",
     "bluebird": "latest",
     "body-parser": "latest",
     "cheerio": "latest",
     "cookie-parser": "latest",
     "debug": "latest",
     "dotenv": "latest",
+    "file-loader": "latest",
     "firebase": "latest",
     "moment": "latest",
     "react": "latest",
@@ -23,6 +23,7 @@
     "react-dom": "latest",
     "react-dropzone": "latest",
     "react-redux": "latest",
+    "react-router-dom": "^4.2.2",
     "react-time": "latest",
     "redux": "latest",
     "redux-thunk": "latest",
@@ -59,5 +60,6 @@
   "deploy": [
     "index.html",
     "dist"
-  ]
+  ],
+  "app": "59e39e7dbd30fc0012d7d670"
 }
