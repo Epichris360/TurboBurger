@@ -9,7 +9,9 @@ class Orders extends Component{
             products:[],
             loading:true,
             orderProducts:[],
-            total:0
+            total:0,
+            submitStatus: false,
+            pay:0
         }  
     }
     componentDidMount(){
@@ -94,6 +96,25 @@ class Orders extends Component{
         })
         this.setState({total})
     }
+    submitOrder(){
+        const order = {
+            orderProducts:this.state.orderProducts,
+            total:this.state.total,
+            order: Math.random().toString(36).substring(10),
+            pay: this.state.pay
+        }
+        console.log('order', order)
+    }
+    paying(e){
+        this.setState({pay: parseFloat( e.target.value ) })
+        setTimeout( () => {
+            if(this.state.pay >= this.state.total){
+                this.setState({submitStatus: true})
+            }else{
+                this.setState({submitStatus: false})
+            }
+        },50)
+    }
     render(){
         return(
             <div>
@@ -136,7 +157,7 @@ class Orders extends Component{
                     </tbody>
                 </table>
                 <div className="pull-right">
-                    <h1>Total:$ {this.state.total}</h1>
+                    <h2>Total:$ {this.state.total}</h2>
                 </div>
                 </div>
                     
@@ -170,7 +191,25 @@ class Orders extends Component{
 
 
                     </div>
+
+                    <div className="pull-right">
+                        pay:{this.state.pay}
+                        <input type="number" 
+                            className="form-control" placeholder="$$$$$$$"
+                            onChange={ e => this.paying(e) }
+                        />
+                        <button className="btn btn-success btn-lg" disabled={!this.state.submitStatus} onClick={ () => this.submitOrder() }>
+                            Create Order
+                        </button>
+
+                        <button onClick={ () => console.log('state',this.state, 'this.state.pay >= this.state.total',this.state.pay >= this.state.total)}>
+                            this.state
+                        </button>
+                    </div>
+
                 </div>
+
+                
             </div>
         )
     }
