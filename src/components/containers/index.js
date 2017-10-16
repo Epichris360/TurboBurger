@@ -5,14 +5,17 @@
 * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 */
 
-import Users  from './Users'
-import Orders from './Orders'
-import SignIn from './SignIn'
-import SignUp from './SignUp'
-import NavBar from './NavBar'
+import Users       from './Users'
+import Orders 	   from './Orders'
+import SignIn 	   from './SignIn'
+import SignUp 	   from './SignUp'
+import NavBar 	   from './NavBar'
+import ProductNew  from './ProductNew'
+import ProductList from './ProductList'
 
 export {
 
-	Users, Orders, SignIn, SignUp, NavBar
+	Users, Orders, SignIn, SignUp, NavBar, ProductNew,
+	ProductList
 	
 }

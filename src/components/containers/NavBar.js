@@ -13,6 +13,8 @@ class NavBar extends Component{
                         <ul className="nav navbar-nav">
                             <li><Link to="signin" >SignIn</Link></li>
                             <li><Link to="signup" >SignUp</Link></li>
+                            <li><Link to="/product-new">New Product!</Link></li>
+                            <li><Link to="/products">Products</Link></li>
                         </ul>
                     </div>
                 </nav>
