@@ -2,6 +2,13 @@
 
 This project was built with Turbo 360. To learn more, click here: https://www.turbo360.co
 
+# To Do
+
+<li>Add Live Orders component(Next)</li>
+<li>Add Editing of Orders while, start == false</li>
+<li>Finish CRUD for products</li>
+<li>Finish CRUD for Orders</li>
+
 ## Instructions
 After cloning into repo, cd to project root directory and run npm install:
 

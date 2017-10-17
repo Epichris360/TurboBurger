@@ -6,7 +6,7 @@ class liveOrders extends Component{
     render(){
         return(
             <div>
-                oldOrders
+                liveOrders
             </div>
         )
     }
