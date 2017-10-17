@@ -25,7 +25,7 @@ class Orders extends Component{
     getInitialState(){
         const initialState = {
             name:'', loading:true, orderProducts:[], total:0,
-            submitStatus: false, pay , name:'', to_go:true, table:'', success: false, successMsg:''
+            submitStatus: false, pay:0 , name:'', to_go:true, table:'', success: false, successMsg:''
         }
         return initialState
     }
