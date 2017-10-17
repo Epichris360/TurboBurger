@@ -21,15 +21,23 @@ class liveOrders extends Component{
                                   created_at, updated_at, started, done, 
                                   to_go, table, serverKey })
             })
-            console.log('liveorders',typeof liveOrders)
-            console.log('liveorders',liveOrders.length)
-            console.log('liveorders',liveOrders)
+            //console.log('liveorders',typeof liveOrders)
+            //console.log('liveorders',liveOrders.length)
+            //console.log('liveorders',liveOrders)
             this.setState({liveOrders})
             this.setState({loading:false})
         })
     }
-    completeGoals(lo){
-        console.log('lo',lo)
+    started(lo){
+        //console.log('lo',lo)
+        orders.child(lo.serverKey).update({started:true})
+    }
+    done(lo){
+        orders.child(lo.serverKey).update({done:true})
+    }
+    moveOrder(lo){
+        orders.child(lo.serverKey).delete()
+        oldOrders.push(lo)
     }
     render(){
         return(
@@ -50,6 +58,13 @@ class liveOrders extends Component{
                                         return(
                                             <div key={i} className="col-md-2 panel" style={{height:'470px',width:'200px', margin:'10px',overflow:'scroll',overflowX:'hidden'}}>
                                                 <h1>Order Up!</h1>
+                                                {
+                                                    !lo.started && !lo.done ?
+                                                        <button className="btn btn-danger" 
+                                                                onClick={()=>this.moveOrder(lo)}>
+                                                            Click to Remove
+                                                        </button> : null
+                                                }
 
                                                 <ul className="list-group" >
                                                 {
@@ -62,17 +77,22 @@ class liveOrders extends Component{
                                                 </ul>
                                                     
                                                 {
-                                                    !lo.start ? 
+                                                    !lo.started ? 
                                                     <button className="btn btn-success" 
-                                                        onClick={ () => this.completeGoals(lo)  }>
+                                                        onClick={ () => this.started(lo)  }>
                                                         Start Order
                                                     </button> : null
                                                 }
                                                 
+                                                {
+                                                    lo.started && !lo.done ? 
+                                                    <button className="btn btn-danger"
+                                                        onClick={ () => this.done(lo) }>
+                                                        Stop Order
+                                                    </button> : null
+                                                }
+                                                
 
-                                                <button className="btn btn-danger">
-                                                    Stop Order
-                                                </button>
                                             </div>
                                         )
                                     })
