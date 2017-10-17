@@ -12,10 +12,12 @@ import SignUp 	   from './SignUp'
 import NavBar 	   from './NavBar'
 import ProductNew  from './ProductNew'
 import ProductList from './ProductList'
+import MainPage	   from './MainPage'
+import liveOrders   from './liveOrders'
 
 export {
 
 	Users, Orders, SignIn, SignUp, NavBar, ProductNew,
-	ProductList
+	ProductList, MainPage, liveOrders
 	
 }

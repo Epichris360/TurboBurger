@@ -4,10 +4,11 @@
 */
 
 
-import userReducer from './userReducer'
+import userReducer 	   from './userReducer'
+import productsReducer from './productsReducer'
 
 export {
 	
-	userReducer
+	userReducer, productsReducer
 	
 }

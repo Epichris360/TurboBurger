@@ -14,3 +14,5 @@ export const firebaseApp = firebase.initializeApp(config)
 export const orders = firebase.database().ref('orders')
 
 export const products = firebase.database().ref('products')
+
+export const oldOrders = firebase.database().ref('oldOrders')

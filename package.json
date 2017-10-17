@@ -30,6 +30,7 @@
     "stripe": "latest",
     "superagent": "latest",
     "turbo360": "latest",
+    "uuid": "^3.1.0",
     "webpack": "latest"
   },
   "devDependencies": {

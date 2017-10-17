@@ -15,6 +15,7 @@ class NavBar extends Component{
                             <li><Link to="signup" >SignUp</Link></li>
                             <li><Link to="/product-new">New Product!</Link></li>
                             <li><Link to="/products">Products</Link></li>
+                            <li><Link to="/order-new">New Order</Link></li>
                         </ul>
                     </div>
                 </nav>

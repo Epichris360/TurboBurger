@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import store from './stores'
 import { Provider } from 'react-redux'
 import { Orders, SignIn, SignUp, NavBar,
-		ProductNew, ProductList } from './components/containers'
+		ProductNew, ProductList, MainPage } from './components/containers'
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -22,9 +22,10 @@ const app = (
 				<NavBar />
 				<div>
 					<Switch>
-						<Route exact path="/" 		component={Orders} />
-						<Route path="/signin" 		component={SignIn} />
-						<Route path="/signup" 		component={SignUp} />
+						<Route exact path="/" 		component={MainPage}     />
+						<Route path="/order-new" 	component={Orders}           />
+						<Route path="/signin" 		component={SignIn}     />
+						<Route path="/signup" 		component={SignUp}     />
 						<Route path="/product-new"  component={ProductNew} />
 						<Route path="/products"     component={ProductList}/>
 					</Switch>

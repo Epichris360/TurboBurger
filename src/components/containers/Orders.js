@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { products } from '../../utils/firebaseApp'
+import { connect }          from 'react-redux'
+import { products }         from '../../utils/firebaseApp'
+import { orders }           from '../../utils/firebaseApp'
+import { v4 }               from 'uuid'
+import actions              from '../../actions'
+
 class Orders extends Component{
     constructor(props){
         super(props)
-        this.state = {
-            name:'',
-            products:[],
-            loading:true,
-            orderProducts:[],
-            total:0,
-            submitStatus: false,
-            pay:0
-        }  
+        this.state = this.getInitialState()
     }
     componentDidMount(){
         products.on('value', snap => {
@@ -22,10 +18,19 @@ class Orders extends Component{
                 const serverKey = prod.key
                 products.push({ name, price, imgUrl, serverKey })
             })
-            //console.log('goals', goals)
-            this.setState({products})
+            this.props.allProducts(products)
             this.setState({loading:false})
         })
+    }
+    getInitialState(){
+        const initialState = {
+            name:'', loading:true, orderProducts:[], total:0,
+            submitStatus: false, pay , name:'', to_go:true, table:'', success: false, successMsg:''
+        }
+        return initialState
+    }
+    resetState(){
+        this.setState(this.getInitialState())
     }
     submitOrder(){
         console.log('order?',this.state.name)
@@ -36,9 +41,6 @@ class Orders extends Component{
         .catch(err => {
             throw err
         })
-    }
-    clickButton(which){
-        console.log('button',which)
     }
     newOrder(prod){
         let order = { name: prod.name, price: prod.price, qty:1, prodTotal: prod.price }
@@ -58,7 +60,6 @@ class Orders extends Component{
         this.changeTotal()
     }
     qtyChange(cat,name){
-        console.log('cat',cat,'name',name)
         let orderProducts = this.state.orderProducts.map( (op) => {
             if( op.name == name ){
                 return this.orderCat(op,cat)
@@ -98,12 +99,22 @@ class Orders extends Component{
     }
     submitOrder(){
         const order = {
+            id: v4(),
+            name:this.state.name,
             orderProducts:this.state.orderProducts,
             total:this.state.total,
-            order: Math.random().toString(36).substring(10),
-            pay: this.state.pay
+            pay: this.state.pay,
+            created_at: new Date().toString(),
+            updated_at: new Date().toString(),
+            started: false,
+            done:false,
+            to_go:this.state.to_go,
+            table:this.state.table
         }
-        console.log('order', order)
+        orders.push(order)
+        this.resetState()
+        this.setState({successMsg: "The Order was Created!"})
+        this.setState({success: true, loading: false})
     }
     paying(e){
         this.setState({pay: parseFloat( e.target.value ) })
@@ -115,11 +126,26 @@ class Orders extends Component{
             }
         },50)
     }
+    toGo(e){
+        console.log('e',e.target.value)
+        if( e.target.value == "true" ){
+            this.setState({to_go: true})
+        }else{
+            this.setState({to_go: false})
+        }
+    }
     render(){
         return(
             <div>
                 <h1>Turbo Burger</h1>
                 <h3>Make an order</h3>
+                {
+                    this.state.success ? 
+                    <div className="alert alert-success">
+                        <strong>Success!</strong> { this.state.successMsg } 
+                        <button className="btn btn-danger btn-xs" onClick={ ()=>this.setState({success:false}) }>x</button>
+                    </div> : null
+                }
                 <div className="col-md-4">
                 <table className="table table-hover">
                     <thead>
@@ -163,7 +189,7 @@ class Orders extends Component{
                     
                 <div className="col-md-8">
                     <div className="row">
-                        <input type="text" placeholder="Search! + Enter!" className="form-control "/>
+                        <input type="text" placeholder="Name!" className="form-control " onChange={ e => this.setState({name: e.target.value}) }/>
                     </div>
                     <div className="row">
 
@@ -172,7 +198,7 @@ class Orders extends Component{
                             
                                 <div>
                                     {
-                                        this.state.products.map( (prod,i) => {
+                                        this.props.products.map( (prod,i) => {
                                             return(
 
                                                 <button key={i} className="btn btn-default " 
@@ -185,34 +211,52 @@ class Orders extends Component{
                                         })
                                     }
                                 </div>
-
-
                         }
-
-
                     </div>
 
                     <div className="pull-right">
-                        pay:{this.state.pay}
                         <input type="number" 
                             className="form-control" placeholder="$$$$$$$"
                             onChange={ e => this.paying(e) }
+                            value={this.state.pay}
                         />
                         <button className="btn btn-success btn-lg" disabled={!this.state.submitStatus} onClick={ () => this.submitOrder() }>
                             Create Order
                         </button>
 
-                        <button onClick={ () => console.log('state',this.state, 'this.state.pay >= this.state.total',this.state.pay >= this.state.total)}>
-                            this.state
-                        </button>
+                        <select className="btn btn-default" onChange={ e => this.toGo(e) }>
+                            <option value={true}>To Go?</option>
+                            <option value={false}>To Stay?</option>
+                        </select>
+                        <br/> <br/>
+                        {
+                            !this.state.to_go ? 
+                                <input 
+                                    type="number" 
+                                    className="form-control" 
+                                    onChange={ e => this.setState({table: parseInt(e.target.value) }) } 
+                                    placeholder="Table Number"
+                                /> :
+                                null
+                        }
                     </div>
-
                 </div>
-
-                
             </div>
         )
     }
 }
 
-export default connect(null,null)(Orders)
+const mapStateToProps = state => {
+    const { products } = state
+    return{
+        products
+    }
+}
+
+const dispatchToProps = dispatch => {
+    return{
+        allProducts: params => dispatch(actions.allProducts(params))
+    }
+}
+
+export default connect(mapStateToProps,dispatchToProps)(Orders)

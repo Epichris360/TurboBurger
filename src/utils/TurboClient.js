@@ -127,6 +127,12 @@ const uploadFile = (file) => {
 	return turbo({site_id:APP_ID}).uploadFile(file) // returns a Promise
 }
 
+const allProducts = (params, actionType) => {
+	return dispatch => dispatch({
+		type: actionType,
+		data: params
+	})
+}
 
 export default {
 
@@ -137,6 +143,7 @@ export default {
 	createUser: createUser,
 	login: login,
 	currentUser: currentUser,
-	uploadFile: uploadFile
+	uploadFile: uploadFile,
+	allProducts: allProducts
 
 }

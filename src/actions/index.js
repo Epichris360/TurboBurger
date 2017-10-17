@@ -39,6 +39,11 @@ export default {
 		return dispatch => {
 			return dispatch(TurboClient.currentUser(constants.CURRENT_USER_RECEIVED))
 		}
+	},
+	allProducts: params => {
+		return dispatch => {
+			return dispatch(TurboClient.allProducts(params, constants.ALL_PRODUCTS))
+		}
 	}
 	
 }
