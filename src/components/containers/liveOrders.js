@@ -3,6 +3,7 @@ import { orders }           from '../../utils/firebaseApp'
 import { oldOrders }        from '../../utils/firebaseApp'
 
 class liveOrders extends Component{
+
     constructor(props){
         super(props)
         this.state = {
@@ -10,6 +11,7 @@ class liveOrders extends Component{
             loading:true
         }
     }
+
     componentDidMount(){
         orders.on('value', snap => {
             let liveOrders = []
@@ -21,22 +23,16 @@ class liveOrders extends Component{
                                   created_at, updated_at, started, done, 
                                   to_go, table, serverKey })
             })
-            //console.log('liveorders',typeof liveOrders)
-            //console.log('liveorders',liveOrders.length)
-            //console.log('liveorders',liveOrders)
             this.setState({liveOrders})
             this.setState({loading:false})
         })
     }
     started(lo){
-        //console.log('lo',lo)
         orders.child(lo.serverKey).update({started:true})
     }
     done(lo){
-        orders.child(lo.serverKey).update({done:true})
-    }
-    moveOrder(lo){
-        orders.child(lo.serverKey).delete()
+        orders.child(lo.serverKey).remove()
+        lo.done = true
         oldOrders.push(lo)
     }
     render(){
@@ -44,9 +40,11 @@ class liveOrders extends Component{
             <div>
                 
                 <h1>Live Orders</h1>
+                <h3>Quantities of Orders: {this.state.liveOrders.length}</h3>
                 <hr/>
+                
                 {
-                    this.state.loading || this.state.liveOrders.length == 0 ? <h1>Loading....</h1> : 
+                    this.state.loading || this.state.liveOrders.length == 0 ? <h1>None For The Moment....</h1> : 
                 
                     <div style={{backgroundColor:'gray', height:'500px',overflow:'auto', overflowX:'hidden' }}>
 
@@ -58,13 +56,6 @@ class liveOrders extends Component{
                                         return(
                                             <div key={i} className="col-md-2 panel" style={{height:'470px',width:'200px', margin:'10px',overflow:'scroll',overflowX:'hidden'}}>
                                                 <h1>Order Up!</h1>
-                                                {
-                                                    !lo.started && !lo.done ?
-                                                        <button className="btn btn-danger" 
-                                                                onClick={()=>this.moveOrder(lo)}>
-                                                            Click to Remove
-                                                        </button> : null
-                                                }
 
                                                 <ul className="list-group" >
                                                 {
@@ -91,8 +82,6 @@ class liveOrders extends Component{
                                                         Stop Order
                                                     </button> : null
                                                 }
-                                                
-
                                             </div>
                                         )
                                     })

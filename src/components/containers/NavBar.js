@@ -13,10 +13,17 @@ class NavBar extends Component{
                         <ul className="nav navbar-nav">
                             <li><Link to="signin" >SignIn</Link></li>
                             <li><Link to="signup" >SignUp</Link></li>
-                            <li><Link to="/product-new">New Product!</Link></li>
-                            <li><Link to="/products">Products</Link></li>
-                            <li><Link to="/order-new">New Order</Link></li>
-                            <li><Link to="/live-orders">Live Orders!</Link></li>
+                            
+                            <li className="dropdown">
+                                <a className="dropdown-toggle" data-toggle="dropdown" >Options
+                                <span className="caret"></span></a>
+                                <ul className="dropdown-menu">
+                                    <li><Link to="/product-new">New Product!</Link></li>
+                                    <li><Link to="/products">Products</Link></li>
+                                    <li><Link to="/order-new">New Order</Link></li>
+                                    <li><Link to="/live-orders">Live Orders!</Link></li>
+                                </ul>
+                            </li>
                         </ul>
                     </div>
                 </nav>

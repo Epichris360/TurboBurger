@@ -4,8 +4,8 @@ This project was built with Turbo 360. To learn more, click here: https://www.tu
 
 # To Do
 
-<li>Add Live Orders component(Next)</li>
-<li>Add Editing of Orders while, start == false</li>
+<li>Add Live Orders component( Done )</li>
+<li>Add Editing of Orders while, start == false( Next  )</li>
 <li>Finish CRUD for products</li>
 <li>Finish CRUD for Orders</li>
 
