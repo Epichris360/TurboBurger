@@ -5,7 +5,7 @@ class NavBar extends Component{
     render(){
         return(
             <div>
-                <nav className="navbar navbar-default">
+                <nav className="navbar navbar-inverse">
                     <div className="container-fluid">
                         <div className="navbar-header">
                             <Link className="navbar-brand" to="/">TurboBurger</Link>
@@ -27,6 +27,7 @@ class NavBar extends Component{
                         </ul>
                     </div>
                 </nav>
+                
             </div>
         )
     }

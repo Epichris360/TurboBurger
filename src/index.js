@@ -18,18 +18,21 @@ import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-do
 const app = (
 	<Provider store={store.configure(null)}>
 		<Router>
-			<div className="container">
+			<div>
 				<NavBar />
-				<div>
-					<Switch>
-						<Route exact path="/" 		component={MainPage}   />
-						<Route path="/order-new" 	component={Orders}     />
-						<Route path="/signin" 		component={SignIn}     />
-						<Route path="/signup" 		component={SignUp}     />
-						<Route path="/product-new"  component={ProductNew} />
-						<Route path="/products"     component={ProductList}/>
-						<Route path="/live-orders"  component={liveOrders} />
-					</Switch>
+				<div className="container">
+					
+					<div>
+						<Switch>
+							<Route exact path="/" 		component={MainPage}   />
+							<Route path="/order-new" 	component={Orders}     />
+							<Route path="/signin" 		component={SignIn}     />
+							<Route path="/signup" 		component={SignUp}     />
+							<Route path="/product-new"  component={ProductNew} />
+							<Route path="/products"     component={ProductList}/>
+							<Route path="/live-orders"  component={liveOrders} />
+						</Switch>
+					</div>
 				</div>
 			</div>
 		</Router>
