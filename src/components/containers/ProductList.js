@@ -24,7 +24,7 @@ class ProductList extends Component{
     }
     render(){
         return(
-            <div>
+            <div  className="container">
                 product list
                 <hr/>
                 {

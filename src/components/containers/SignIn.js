@@ -26,7 +26,7 @@ class SignIn extends Component{
 
     render(){
         return(
-            <div  style={{margin: '5%'}}>
+            <div  className="container" style={{margin: '5%'}}>
                 <h2>Sign In</h2>
                 <div className="form-group">
                     <input className="form-control"

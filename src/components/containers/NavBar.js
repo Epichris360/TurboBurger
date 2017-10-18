@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 class NavBar extends Component{
     render(){
         return(
-            <div>
+            <div >
                 <nav className="navbar navbar-inverse">
                     <div className="container-fluid">
                         <div className="navbar-header">

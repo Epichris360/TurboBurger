@@ -37,7 +37,7 @@ class liveOrders extends Component{
     }
     render(){
         return(
-            <div>
+            <div  className="container">
                 
                 <h1>Live Orders</h1>
                 <h3>Quantities of Orders: {this.state.liveOrders.length}</h3>

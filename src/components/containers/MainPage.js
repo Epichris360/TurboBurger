@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
 const bgimg = {
-    position: 'relative',
-    opacity: '0.80',
+
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    height: '100%'
+    height: '100%',
+    marginTop: '-20px'
 }
 
 const caption =  {
@@ -36,7 +36,11 @@ class MainPage extends Component{
                     <br/>
                     <br/>
                     <br/>
-                    <span style={border}>The Amazing POS of TurboPizza INC.</span>
+                    <span style={border}>The Amazing POS of </span>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <span style={border} >TurboPizza INC.</span>
                 </div>
             </div>
         )

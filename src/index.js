@@ -20,7 +20,7 @@ const app = (
 		<Router>
 			<div>
 				<NavBar />
-				<div className="container">
+				<div>
 					
 					<div>
 						<Switch>

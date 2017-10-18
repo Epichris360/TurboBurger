@@ -47,7 +47,7 @@ class ProductNew extends Component{
 	}
     render(){
         return(
-            <div>
+            <div  className="container">
                 {
                     this.state.error ? 
                     <div className="alert alert-danger">

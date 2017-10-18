@@ -25,7 +25,8 @@ class Orders extends Component{
     getInitialState(){
         const initialState = {
             name:'', loading:true, orderProducts:[], total:0,
-            submitStatus: false, pay:0 , name:'', to_go:true, table:'', success: false, successMsg:''
+            submitStatus: false, pay:0 , name:'', to_go:true, table:'', success: false, successMsg:'',
+            leftOver:0
         }
         return initialState
     }
@@ -112,9 +113,10 @@ class Orders extends Component{
             table:this.state.table
         }
         orders.push(order)
+        const { total, pay } = this.state
         this.resetState()
         this.setState({successMsg: "The Order was Created!"})
-        this.setState({success: true, loading: false})
+        this.setState({success: true, loading: false, leftOver: pay - total})
     }
     paying(e){
         this.setState({pay: parseFloat( e.target.value ) })
@@ -136,18 +138,18 @@ class Orders extends Component{
     }
     render(){
         return(
-            <div>
+            <div  className="container">
                 <h1>Turbo Burger</h1>
                 <h3>Make an order</h3>
                 {
                     this.state.success ? 
                     <div className="alert alert-success">
-                        <strong>Success!</strong> { this.state.successMsg } 
+                        <strong>Success!</strong> { this.state.successMsg }  <h3>Customers Change: {this.state.leftOver}</h3>
                         <button className="btn btn-danger btn-xs" onClick={ ()=>this.setState({success:false}) }>x</button>
                     </div> : null
                 }
                 <div className="col-md-4">
-                <table className="table table-hover">
+                <table className="table table-hover" style={{overflow:'scroll', overflowX:'hidden', height:'300px'}}>
                     <thead>
                         <tr>
                             <th>Product Name</th>
@@ -157,7 +159,7 @@ class Orders extends Component{
                             <th>Remove</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody  >
                         {
                             this.state.orderProducts.map( ( op,i ) => {
                                 return(
@@ -191,7 +193,7 @@ class Orders extends Component{
                     <div className="row">
                         <input type="text" placeholder="Name!" className="form-control " onChange={ e => this.setState({name: e.target.value}) }/>
                     </div>
-                    <div className="row">
+                    <div className="row" style={{overflow:'scroll', overflowX:'hidden', height:'300px'}} >
 
                         {
                             this.state.loading ? <h1>Loading...</h1> :
