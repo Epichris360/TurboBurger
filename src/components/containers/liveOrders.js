@@ -55,7 +55,14 @@ class liveOrders extends Component{
                                     this.state.liveOrders.map( (lo,i) => {
                                         return(
                                             <div key={i} className="col-md-2 panel" style={{height:'470px',width:'200px', margin:'10px',overflow:'scroll',overflowX:'hidden'}}>
-                                                <h1>Order Up!</h1>
+                                                <h5>Order Up!</h5>
+
+                                                {
+                                                    lo.to_go ? 
+                                                    <h5>
+                                                        { `To Go!: ${lo.name}` }
+                                                    </h5> : <h5> {`Table No: ${lo.table}`} </h5>
+                                                }
 
                                                 <ul className="list-group" >
                                                 {

@@ -23,7 +23,8 @@ const border = {
     color: '#fff',
     padding: '18px',
     fontSize: '25px',
-    letterSpacing: '10px'
+    letterSpacing: '10px',
+    opacity:'.70'
 }
 
 class MainPage extends Component{

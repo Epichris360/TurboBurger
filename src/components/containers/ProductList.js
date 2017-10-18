@@ -6,7 +6,12 @@ class ProductList extends Component{
         super(props)
         this.state = {
             products: [],
-            loading:true
+            loading:true,
+            editProduct:{},
+            editTrue:false,
+            updateName:'',
+            updatePrice:0,
+            updateImg:''
         }
     }
     componentDidMount(){
@@ -22,27 +27,71 @@ class ProductList extends Component{
             this.setState({loading:false})
         })
     }
+    pickProdcut(p){
+        this.setState({ editTrue: true, editProduct:p, 
+                        updateName:p.name, updatePrice:p.price, updateImg:p.imgUrl })
+    }
+    submitUpdate(){
+        const { updateName, updatePrice, updateImg } = this.state
+        products.child(this.state.editProduct.serverKey).update({
+            name: updateName, price: updatePrice, imgUrl: updateImg
+        })
+        this.setState({editProduct: {}, editTrue: false})
+    }
     render(){
         return(
-            <div  className="container">
-                product list
+            <div className="container">
+                
                 <hr/>
-                {
-                    this.state.loading ? <h1>Loading....</h1> :
-                    <div>
-                            
-                        {
-                            this.state.products.map( (p,i) => {
-                                return(
-                                    <li key={i}>
-                                        <img src={p.imgUrl} alt=""/>
-                                    </li>
-                                )
-                            })
-                        }
-                            
-                    </div> 
-                }
+                <div className="col-md-6 col-xs-6">
+                    {
+                        this.state.editTrue ? 
+                        <div>
+                            <h2>Product Update!</h2>
+                            <input type="text" 
+                                className="form-control" placeholder="Name"
+                                onChange={ e => this.setState({updateName: e.target.value}) }
+                                value={this.state.updateName}
+                            />
+                            <br/>
+                            <input type="number" 
+                                className="form-control" placeholder="Price"
+                                onChange={ e => this.setState({updatePrice: e.target.value}) }
+                                value={this.state.updatePrice}
+                            />
+                            <br/>
+                            <input type="file"/>
+
+                            <button 
+                                className="btn btn-success"
+                                onClick={ () => this.submitUpdate() }
+                            >Update It</button>
+                        </div> : <h1>Pick One</h1>
+                    }
+                    
+                </div>
+                <div className="col-md-6 col-xs-6">
+                    <h2>product list</h2>
+                    {
+                        this.state.loading ? <h1>Loading....</h1> :
+                        <div>
+                                
+                            {
+                                this.state.products.map( (p,i) => {
+                                    return(
+                                        
+                                        <button key={i} className="btn btn-default " 
+                                                style={{ margin:'5px', height:'100px', width:'100px'}} 
+                                                onClick={ () => console.log('this is a log') } >
+                                            <img  src={p.imgUrl} alt=""/>
+                                        </button>
+                                    )
+                                })
+                            }
+                                
+                        </div> 
+                    }
+                </div>
             </div>
         )
     }
