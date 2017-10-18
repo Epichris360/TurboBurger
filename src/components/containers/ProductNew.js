@@ -13,7 +13,7 @@ class ProductNew extends Component{
             price:0,
             imgUrl:'',
             imageUploaded:false,
-            error: false
+            error: false, submitted:false
         }
     }
     submitProduct(){
@@ -24,6 +24,8 @@ class ProductNew extends Component{
                 imgUrl:this.state.imgUrl
             }
             products.push(product)
+            this.setState({submitted:true})
+            this.props.history.push('/products')
         }else{
             this.setState({error:true})
         }
@@ -35,9 +37,9 @@ class ProductNew extends Component{
         this.setState({imageUploaded:false})
 		TurboClient.uploadFile(file)
 		.then(data => {
-            this.setState({imgUrl: data.result.url})
-            this.setState({imageUploaded:true})
-            console.log('data',data)
+            this.setState( { imgUrl: data.result.url } )
+            this.setState( { imageUploaded:true } )
+            //console.log('data',data)
 		})
 		.catch(err => {
 			console.log('upload ERROR: ' + err.message)
@@ -53,6 +55,13 @@ class ProductNew extends Component{
                     <div className="alert alert-danger">
                         <strong>Error!</strong> Check your inputs. 
                         <button className="btn btn-danger btn-xs" onClick={ () => this.setState({error:false})}>x</button>
+                    </div> : null
+                }
+                {
+                    this.state.submitted ? 
+                    <div className="alert alert-success">
+                        <strong>Success!</strong> The Product was created
+                        <button className="btn btn-danger btn-xs" onClick={ () => this.setState({submitted:false})}>x</button>
                     </div> : null
                 }
                 <h1>New Product!</h1>
@@ -80,7 +89,7 @@ class ProductNew extends Component{
                 <br/>
                 <br/>
                 <br/>
-                <button className="btn btn-success" onClick={ () => this.submitProduct() }>
+                <button className="btn btn-success" onClick={ () => this.submitProduct() } disabled={!this.state.imageUploaded}>
                     Create the Product!
                 </button>
             </div>

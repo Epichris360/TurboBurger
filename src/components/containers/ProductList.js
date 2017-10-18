@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { products }         from '../../utils/firebaseApp'
+import { TurboClient }      from '../../utils'
+import Dropzone             from 'react-dropzone'
+import superagent           from 'superagent'
 
 class ProductList extends Component{
     constructor(props){
@@ -11,7 +14,9 @@ class ProductList extends Component{
             editTrue:false,
             updateName:'',
             updatePrice:0,
-            updateImg:''
+            updateImg:'',
+            imageUploaded:false,
+            disable:true
         }
     }
     componentDidMount(){
@@ -27,17 +32,30 @@ class ProductList extends Component{
             this.setState({loading:false})
         })
     }
-    pickProdcut(p){
+    pickProduct(p){
         this.setState({ editTrue: true, editProduct:p, 
                         updateName:p.name, updatePrice:p.price, updateImg:p.imgUrl })
     }
     submitUpdate(){
         const { updateName, updatePrice, updateImg } = this.state
+
         products.child(this.state.editProduct.serverKey).update({
             name: updateName, price: updatePrice, imgUrl: updateImg
         })
         this.setState({editProduct: {}, editTrue: false})
     }
+    uploadFile(files){
+		const file = files[0]
+        this.setState({imageUploaded:false,disable:false})
+		TurboClient.uploadFile(file)
+		.then(data => {
+            this.setState({updateImg: data.result.url})
+            this.setState({imageUploaded:true, disable:true})
+		})
+		.catch(err => {
+			console.log('upload ERROR: ' + err.message)
+        })
+	}
     render(){
         return(
             <div className="container">
@@ -60,11 +78,20 @@ class ProductList extends Component{
                                 value={this.state.updatePrice}
                             />
                             <br/>
-                            <input type="file"/>
 
+                            <h3>Upload File</h3>
+                            {
+                                this.state.imageUploaded ? <h3 style={{color:'red'}}>Image Uploaded!</h3> : null
+                            }
+                            <Dropzone className="btn btn-primary" onDrop={this.uploadFile.bind(this)}>
+                                <strong style={{color:'white'}}>Select File</strong>
+                            </Dropzone>
+                            <br/><br/>
                             <button 
                                 className="btn btn-success"
+                                disabled={!this.state.disable}
                                 onClick={ () => this.submitUpdate() }
+                                
                             >Update It</button>
                         </div> : <h1>Pick One</h1>
                     }
@@ -82,7 +109,7 @@ class ProductList extends Component{
                                         
                                         <button key={i} className="btn btn-default " 
                                                 style={{ margin:'5px', height:'100px', width:'100px'}} 
-                                                onClick={ () => console.log('this is a log') } >
+                                                onClick={ () => this.pickProduct(p) } >
                                             <img  src={p.imgUrl} alt=""/>
                                         </button>
                                     )
