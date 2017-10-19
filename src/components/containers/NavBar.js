@@ -20,16 +20,18 @@ class NavBar extends Component{
                         <ul className="nav navbar-nav">
                             {
                                 this.props.user.email == '' ? 
-                                <div>
-                                    <li><Link to="signin" >SignIn</Link></li>
-                                    <li><Link to="signup" >SignUp</Link></li>
-                                </div> : null
+                                    <li><Link to="signin" >SignIn</Link></li> : null
                             }
-                            
+                            {
+                                this.props.user.email == '' ? 
+                                    <li><Link to="signup" >SignUp</Link></li>: null
+                            }
                             {
                                 this.props.user.email != '' ?
-                                <div>
-                                    <li><a onClick={ () => signOut() } >Log out</a></li>
+                                    <li><a onClick={ () => signOut() } >Log out</a></li> : null
+                            }
+                            {
+                                this.props.user.email != '' ?
                                     <li className="dropdown">
                                         <a className="dropdown-toggle" data-toggle="dropdown" >Options
                                         <span className="caret"></span></a>
@@ -39,8 +41,7 @@ class NavBar extends Component{
                                             <li><Link to="/order-new">New Order</Link></li>
                                             <li><Link to="/live-orders">Live Orders!</Link></li>
                                         </ul>
-                                    </li>
-                                </div> : null
+                                    </li> : null
                             }
                             
                         </ul>
