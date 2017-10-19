@@ -8,8 +8,6 @@ This project was built with Turbo 360. To learn more, click here: https://www.tu
 <li>Finish CRUD for products( DONE )</li>
 <li>Front page and minimal design( DONE )</li>
 <li>User login/logout ( DONE )</li>
-<li>See List of Old Orders</li>
-<li>Finish CRUD for Orders && Add Editing of Orders while, start == false</li>
 
 ## Instructions
 After cloning into repo, cd to project root directory and run npm install:

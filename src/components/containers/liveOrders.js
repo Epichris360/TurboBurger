@@ -1,7 +1,6 @@
-import React, { Component } from 'react'
-import { orders }           from '../../utils/firebaseApp'
-import { oldOrders }        from '../../utils/firebaseApp'
-import NavBar               from './NavBar'
+import React, { Component }  from 'react'
+import { orders, oldOrders } from '../../utils/firebaseApp'
+import NavBar                from './NavBar'
 
 class liveOrders extends Component{
 

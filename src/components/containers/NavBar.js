@@ -31,6 +31,7 @@ class NavBar extends Component{
                             <Link className="navbar-brand" to="/">TurboBurger</Link>
                         </div>
                         <ul className="nav navbar-nav">
+                            <li><Link to="/old-orders">Old Orders</Link></li>
                             {
                                 this.props.user.email == '' ? 
                                     <li><Link to="signin" >SignIn</Link></li> : null
