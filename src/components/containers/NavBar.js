@@ -15,12 +15,12 @@ class NavBar extends Component{
         firebaseApp.auth().signOut()
         .then(data => {
             this.props.loggout()
-            this.props.history.push('/') 
+            //this.props.history.push('/')
+            location.reload('/')
         })
         .catch(err =>{
             console.log('err',err.message)
         })
-        
     }
     render(){
         return(
@@ -41,7 +41,7 @@ class NavBar extends Component{
                             }
                             {
                                 this.props.user.email != '' ?
-                                    <li><a onClick={ () => this.signOut() } >Log out</a></li> : null
+                                    <li><a onClick={ this.signOut.bind(this) } >Log out</a></li> : null
                             }
                             {
                                 this.props.user.email != '' ?
