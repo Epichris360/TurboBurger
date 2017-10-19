@@ -1,13 +1,20 @@
 import React, { Component } from 'react'
 import { Link }             from 'react-router-dom'
-import { connect }           from 'react-redux'
-import firebaseApp         from '../../utils/firebaseApp'
+import { connect }          from 'react-redux'
+import { firebaseApp }      from '../../utils/firebaseApp'
+import actions              from '../../actions'
 
 class NavBar extends Component{
+    constructor(props){
+        super(props)
+        this.state = {
+            
+        }
+    }
     signOut(){
         firebaseApp.auth().signOut()
         this.props.loggout()
-
+        this.props.history.push('/')
     }
     render(){
         return(
@@ -28,7 +35,7 @@ class NavBar extends Component{
                             }
                             {
                                 this.props.user.email != '' ?
-                                    <li><a onClick={ () => signOut() } >Log out</a></li> : null
+                                    <li><a onClick={ () => this.signOut() } >Log out</a></li> : null
                             }
                             {
                                 this.props.user.email != '' ?
