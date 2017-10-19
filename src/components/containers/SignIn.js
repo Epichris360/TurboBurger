@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import {firebaseApp} from '../../utils/firebaseApp'
-import { Link }from 'react-router-dom'
+import {firebaseApp}        from '../../utils/firebaseApp'
+import { Link }             from 'react-router-dom'
+import { connect }          from 'react-redux'
+import actions              from '../../actions'
 
 class SignIn extends Component{
     constructor(props){
@@ -17,6 +19,8 @@ class SignIn extends Component{
         const { email, password } = this.state
         firebaseApp.auth().signInWithEmailAndPassword(email, password)
             .then(data => {
+                //console.log('data',data)
+                this.props.thisUser({email:data.email})
                 this.props.history.push('/')
             })
             .catch(error => {
@@ -50,4 +54,16 @@ class SignIn extends Component{
     }
 }
 
-export default SignIn
+const mapStateToProps = state => {
+    return{
+
+    }
+}
+
+const dispatchToProps = dispatch => {
+    return{
+        thisUser: params => dispatch(actions.thisUser(params))
+    }
+}
+
+export default connect(mapStateToProps, dispatchToProps)(SignIn)

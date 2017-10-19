@@ -44,6 +44,16 @@ export default {
 		return dispatch => {
 			return dispatch(TurboClient.allProducts(params, constants.ALL_PRODUCTS))
 		}
+	},
+	thisUser: params => {
+		return dispatch => {
+			return dispatch(TurboClient.thisUser(params, constants.THIS_USER))
+		}
+	},
+	loggout: () => {
+		return dispatch => {
+			return dispatch(TurboClient.loggout(constants.LOGGOUT))
+		}
 	}
 	
 }

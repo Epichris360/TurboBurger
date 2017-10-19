@@ -1,7 +1,14 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link }             from 'react-router-dom'
+import { connect }           from 'react-redux'
+import firebaseApp         from '../../utils/firebaseApp'
 
 class NavBar extends Component{
+    signOut(){
+        firebaseApp.auth().signOut()
+        this.props.loggout()
+
+    }
     render(){
         return(
             <div >
@@ -11,19 +18,31 @@ class NavBar extends Component{
                             <Link className="navbar-brand" to="/">TurboBurger</Link>
                         </div>
                         <ul className="nav navbar-nav">
-                            <li><Link to="signin" >SignIn</Link></li>
-                            <li><Link to="signup" >SignUp</Link></li>
+                            {
+                                this.props.user.email == '' ? 
+                                <div>
+                                    <li><Link to="signin" >SignIn</Link></li>
+                                    <li><Link to="signup" >SignUp</Link></li>
+                                </div> : null
+                            }
                             
-                            <li className="dropdown">
-                                <a className="dropdown-toggle" data-toggle="dropdown" >Options
-                                <span className="caret"></span></a>
-                                <ul className="dropdown-menu">
-                                    <li><Link to="/product-new">New Product!</Link></li>
-                                    <li><Link to="/products">Products</Link></li>
-                                    <li><Link to="/order-new">New Order</Link></li>
-                                    <li><Link to="/live-orders">Live Orders!</Link></li>
-                                </ul>
-                            </li>
+                            {
+                                this.props.user.email != '' ?
+                                <div>
+                                    <li><a onClick={ () => signOut() } >Log out</a></li>
+                                    <li className="dropdown">
+                                        <a className="dropdown-toggle" data-toggle="dropdown" >Options
+                                        <span className="caret"></span></a>
+                                        <ul className="dropdown-menu">
+                                            <li><Link to="/product-new">New Product!</Link></li>
+                                            <li><Link to="/products">Products</Link></li>
+                                            <li><Link to="/order-new">New Order</Link></li>
+                                            <li><Link to="/live-orders">Live Orders!</Link></li>
+                                        </ul>
+                                    </li>
+                                </div> : null
+                            }
+                            
                         </ul>
                     </div>
                 </nav>
@@ -32,5 +51,18 @@ class NavBar extends Component{
         )
     }
 }
+const mapStateToProps = state => {
+    const { user } = state
+    return{
+        user
+    }
+}
 
-export default NavBar
+const dispatchToProps = dispatch => {
+    return{
+        loggout: () => dispatch(actions.loggout())
+    }
+}
+
+
+export default connect(mapStateToProps,dispatchToProps)(NavBar)

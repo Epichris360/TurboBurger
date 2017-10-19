@@ -6,12 +6,8 @@ import constants from '../constants'
 	file (../stores/index.js) with your reducers.
 * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 */
-
-
-
-var initialState = {
-	all: null,
-	currentUser: null // signed in user
+const initialState = {
+	email:''
 }
 
 export default (state = initialState, action) => {
@@ -19,20 +15,12 @@ export default (state = initialState, action) => {
 
 	switch (action.type) {
 
-		case constants.CURRENT_USER_RECEIVED:
-			newState['currentUser'] = action.data
-			return newState
+		case constants.THIS_USER:
+			return action.data
 
-		case constants.USERS_RECEIVED:
-			newState['all'] = action.data
-			return newState
-
-		case constants.USER_CREATED:
-			let array = (newState.all) ? Object.assign([], newState.all) : []
-			array.unshift(action.data)
-			newState['all'] = array
-			return newState
-
+		case constants.LOGGOUT:
+			return initialState
+			
 		default:
 			return state
 	}

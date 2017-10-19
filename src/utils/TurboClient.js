@@ -134,6 +134,19 @@ const allProducts = (params, actionType) => {
 	})
 }
 
+const thisUser = (params, actionType) => {
+	return dispatch => dispatch({
+		type: actionType,
+		data: params
+	})
+}
+
+const loggout = (actionType) => {
+	return dispatch => dispatch({
+		type: actionType
+	})
+}
+
 export default {
 
 	getRequest: getRequest,
@@ -144,6 +157,8 @@ export default {
 	login: login,
 	currentUser: currentUser,
 	uploadFile: uploadFile,
-	allProducts: allProducts
+	allProducts: allProducts,
+	thisUser:thisUser,
+	loggout: loggout
 
 }
