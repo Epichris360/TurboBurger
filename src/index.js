@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM 			from 'react-dom'
 import store  				from './stores'
 import { Provider }         from 'react-redux'
-import { Orders, SignIn, SignUp, NavBar, oldOrdersList,
+import { Orders, SignIn, SignUp, NavBar, 
 		ProductNew, ProductList, MainPage, liveOrders }    from './components/containers'
 import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 
@@ -28,7 +28,6 @@ const app = (
 						<Route path="/product-new"  component={ProductNew}    />
 						<Route path="/products"     component={ProductList}   />
 						<Route path="/live-orders"  component={liveOrders}    />
-						<Route path="/old-orders"   component={oldOrdersList} />
 					</Switch>
 				</div>
 			</div>
