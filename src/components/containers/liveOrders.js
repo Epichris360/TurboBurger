@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { orders }           from '../../utils/firebaseApp'
 import { oldOrders }        from '../../utils/firebaseApp'
+import NavBar               from './NavBar'
 
 class liveOrders extends Component{
 
@@ -37,69 +38,72 @@ class liveOrders extends Component{
     }
     render(){
         return(
-            <div  className="container">
-                
-                <h1>Live Orders</h1>
-                <h3>Quantities of Orders: {this.state.liveOrders.length}</h3>
-                <hr/>
-                
-                {
-                    this.state.loading || this.state.liveOrders.length == 0 ? <h1>None For The Moment....</h1> : 
-                
-                    <div style={{backgroundColor:'gray', height:'500px',overflow:'auto', overflowX:'hidden' }}>
+            <div>
+                <NavBar />
+                <div  className="container">
+                    
+                    <h1>Live Orders</h1>
+                    <h3>Quantities of Orders: {this.state.liveOrders.length}</h3>
+                    <hr/>
+                    
+                    {
+                        this.state.loading || this.state.liveOrders.length == 0 ? <h1>None For The Moment....</h1> : 
+                    
+                        <div style={{backgroundColor:'gray', height:'500px',overflow:'auto', overflowX:'hidden' }}>
 
-                        <div className="container">
-                            <div className="row" >
+                            <div className="container">
+                                <div className="row" >
 
-                                {
-                                    this.state.liveOrders.map( (lo,i) => {
-                                        return(
-                                            <div key={i} className="col-md-2 panel" style={{height:'470px',width:'200px', margin:'10px',overflow:'scroll',overflowX:'hidden'}}>
-                                                <h5>Order Up!</h5>
+                                    {
+                                        this.state.liveOrders.map( (lo,i) => {
+                                            return(
+                                                <div key={i} className="col-md-2 panel" style={{height:'470px',width:'200px', margin:'10px',overflow:'scroll',overflowX:'hidden'}}>
+                                                    <h5>Order Up!</h5>
 
-                                                {
-                                                    lo.to_go ? 
-                                                    <h5>
-                                                        { `To Go!: ${lo.name}` }
-                                                    </h5> : <h5> {`Table No: ${lo.table}`} </h5>
-                                                }
+                                                    {
+                                                        lo.to_go ? 
+                                                        <h5>
+                                                            { `To Go!: ${lo.name}` }
+                                                        </h5> : <h5> {`Table No: ${lo.table}`} </h5>
+                                                    }
 
-                                                <ul className="list-group" >
-                                                {
-                                                    lo.orderProducts.map( (op,i) => {
-                                                        return(
-                                                            <li key={i} className="list-group-item">{op.name} <span className="badge">{op.qty}</span></li>
-                                                        )
-                                                    })
-                                                }
-                                                </ul>
+                                                    <ul className="list-group" >
+                                                    {
+                                                        lo.orderProducts.map( (op,i) => {
+                                                            return(
+                                                                <li key={i} className="list-group-item">{op.name} <span className="badge">{op.qty}</span></li>
+                                                            )
+                                                        })
+                                                    }
+                                                    </ul>
+                                                        
+                                                    {
+                                                        !lo.started ? 
+                                                        <button className="btn btn-success" 
+                                                            onClick={ () => this.started(lo)  }>
+                                                            Start Order
+                                                        </button> : null
+                                                    }
                                                     
-                                                {
-                                                    !lo.started ? 
-                                                    <button className="btn btn-success" 
-                                                        onClick={ () => this.started(lo)  }>
-                                                        Start Order
-                                                    </button> : null
-                                                }
-                                                
-                                                {
-                                                    lo.started && !lo.done ? 
-                                                    <button className="btn btn-danger"
-                                                        onClick={ () => this.done(lo) }>
-                                                        Stop Order
-                                                    </button> : null
-                                                }
-                                            </div>
-                                        )
-                                    })
-                                }
-                                
-                            </div>  
+                                                    {
+                                                        lo.started && !lo.done ? 
+                                                        <button className="btn btn-danger"
+                                                            onClick={ () => this.done(lo) }>
+                                                            Stop Order
+                                                        </button> : null
+                                                    }
+                                                </div>
+                                            )
+                                        })
+                                    }
+                                    
+                                </div>  
+                            </div>
+
                         </div>
+                    }
 
-                    </div>
-                }
-
+                </div>
             </div>
         )
     }

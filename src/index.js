@@ -19,20 +19,17 @@ const app = (
 	<Provider store={store.configure(null)}>
 		<Router>
 			<div>
-				<NavBar />
+				
 				<div>
-					
-					<div>
-						<Switch>
-							<Route exact path="/" 		component={MainPage}   />
-							<Route path="/order-new" 	component={Orders}     />
-							<Route path="/signin" 		component={SignIn}     />
-							<Route path="/signup" 		component={SignUp}     />
-							<Route path="/product-new"  component={ProductNew} />
-							<Route path="/products"     component={ProductList}/>
-							<Route path="/live-orders"  component={liveOrders} />
-						</Switch>
-					</div>
+					<Switch>
+						<Route exact path="/" 		component={MainPage}   />
+						<Route path="/order-new" 	component={Orders}     />
+						<Route path="/signin" 		component={SignIn}     />
+						<Route path="/signup" 		component={SignUp}     />
+						<Route path="/product-new"  component={ProductNew} />
+						<Route path="/products"     component={ProductList}/>
+						<Route path="/live-orders"  component={liveOrders} />
+					</Switch>
 				</div>
 			</div>
 		</Router>

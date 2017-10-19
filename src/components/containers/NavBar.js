@@ -13,12 +13,18 @@ class NavBar extends Component{
     }
     signOut(){
         firebaseApp.auth().signOut()
-        this.props.loggout()
-        this.props.history.push('/')
+        .then(data => {
+            this.props.loggout()
+            this.props.history.push('/') 
+        })
+        .catch(err =>{
+            console.log('err',err.message)
+        })
+        
     }
     render(){
         return(
-            <div >
+
                 <nav className="navbar navbar-inverse">
                     <div className="container-fluid">
                         <div className="navbar-header">
@@ -55,7 +61,6 @@ class NavBar extends Component{
                     </div>
                 </nav>
                 
-            </div>
         )
     }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
+import NavBar               from './NavBar'
 
-const bgimg = {
+const bgimg = { 
 
     backgroundPosition: 'center',
     backgroundRepeat: 'no-repeat',
@@ -30,18 +31,22 @@ const border = {
 class MainPage extends Component{
     render(){
         return(
-            <div style={bgimg}>
-                <img src="https://images.unsplash.com/photo-1477259004500-ce2463b979ca?dpr=1&auto=format&w=1800&q=60&cs=tinysrgb" alt=""/>
-                <div style={caption} >
-                    <span style={border}>TurboBurger</span>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <span style={border}>The Amazing POS of </span>
-                    <br/>
-                    <br/>
-                    <br/>
-                    <span style={border} >TurboPizza INC.</span>
+            <div>
+                <NavBar />
+
+                <div style={bgimg}>
+                    <img src="https://images.unsplash.com/photo-1477259004500-ce2463b979ca?dpr=1&auto=format&w=1800&q=60&cs=tinysrgb" alt=""/>
+                    <div style={caption} >
+                        <span style={border}>TurboBurger</span>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <span style={border}>The Amazing POS of </span>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <span style={border} >TurboPizza INC.</span>
+                    </div>
                 </div>
             </div>
         )
